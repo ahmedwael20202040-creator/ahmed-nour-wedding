@@ -127,7 +127,8 @@ We are counting the moments until we begin our forever story.`;
 
       const t = rand(0, Math.PI * 2);
       const p = heartPoint(t);
-      const scale = rand(6.8, 9.1);
+      const mobile = window.innerWidth <= 768;
+const scale = mobile ? rand(7.6, 10.2) : rand(6.8, 9.1);
 
       let x = cx + p.x * scale + rand(-8, 8);
       let y = cy - p.y * scale + rand(-10, 10);
