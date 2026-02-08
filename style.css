@@ -360,3 +360,41 @@ h1 .heartMark {
 .sig {
   display: none;
 }
+/* ===== Fix big empty gap between text and countdown ===== */
+.left{
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important; /* كان بيسيب فراغ */
+  gap: 8px !important;
+}
+
+.textBlock{
+  margin-bottom: 0 !important;
+}
+
+.message{
+  margin-bottom: 0 !important;
+  line-height: 1.28 !important;
+  white-space: normal !important; /* يمنع سطور زيادة من template */
+}
+
+.countWrap{
+  margin-top: 4px !important;
+  padding-top: 8px !important;
+}
+
+/* موبايل: نرفع العداد لفوق أكثر */
+@media (max-width: 768px){
+  .wrap{
+    grid-template-rows: 30dvh auto !important;
+  }
+
+  .left{
+    align-content: start !important;
+    gap: 6px !important;
+  }
+
+  .countWrap{
+    margin-top: 2px !important;
+  }
+}

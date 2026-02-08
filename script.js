@@ -18,11 +18,6 @@
 
   // ===== Data =====
   const weddingDate = new Date(2026, 5, 6, 19, 0, 0); // June 6, 2026 - 7:00 PM local
-  const messageText = `To Ahmed and Nour,
-
-Every passing day brings us closer to the most beautiful day of our lives. 💍
-
-We are counting the moments until we begin our forever story.`;
 
   // ===== Helpers =====
   const rand = (min, max) => Math.random() * (max - min) + min;
@@ -58,7 +53,12 @@ We are counting the moments until we begin our forever story.`;
   }
 
   // ===== Init text/date =====
-  messageEl.textContent = messageText;
+  // NOTE: using HTML line breaks (instead of textContent + pre-line)
+  messageEl.innerHTML = `
+    To Ahmed and Nour,<br><br>
+    Every passing day brings us closer to the most beautiful day of our lives. 💍<br><br>
+    We are counting the moments until we begin our forever story.
+  `;
 
   const fmtDate = weddingDate.toLocaleDateString("en-US", {
     month: "long",
@@ -128,7 +128,7 @@ We are counting the moments until we begin our forever story.`;
       const t = rand(0, Math.PI * 2);
       const p = heartPoint(t);
       const mobile = window.innerWidth <= 768;
-const scale = mobile ? rand(7.6, 10.2) : rand(6.8, 9.1);
+      const scale = mobile ? rand(7.6, 10.2) : rand(6.8, 9.1);
 
       let x = cx + p.x * scale + rand(-8, 8);
       let y = cy - p.y * scale + rand(-10, 10);
