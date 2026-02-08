@@ -415,15 +415,16 @@ h1 .heartMark { color: #d07386; padding: 0 .16em; }
     transform: translateX(6px) rotate(18deg);
   }
 
-  /* تاج القلب */
-  .crown{
-    width: 250px;
-    height: 210px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 145px; /* يطلع لفوق بدون قص */
-    filter: drop-shadow(0 8px 8px rgba(0,0,0,.12));
-  }
+ /* تاج القلب - موبايل */
+.crown{
+  width: min(72vw, 290px);
+  height: min(60vw, 240px);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 125px; /* قللناها شوية عشان متتقصش من فوق */
+  filter: drop-shadow(0 8px 8px rgba(0,0,0,.12));
+}
+
 
   .left{
     order: 2;
