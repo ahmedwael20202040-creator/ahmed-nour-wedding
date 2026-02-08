@@ -193,20 +193,23 @@ We are counting the moments until we begin our forever story.`;
   let fallTimer = null;
   let growTimer = null;
 
-  startBtn.addEventListener(
-    "click",
-    () => {
-      intro.classList.add("hidden");
-      mainCard.classList.add("show");
+ function openPage() {
+  intro.classList.add("hidden");
+  mainCard.classList.add("show");
 
-      updateCountdown();
-      countdownTimer = setInterval(updateCountdown, 1000);
+  updateCountdown();
+  countdownTimer = setInterval(updateCountdown, 1000);
 
-      growTimer = buildHeartTree();
-      fallTimer = startFallingHearts();
-    },
-    { once: true }
-  );
+  growTimer = buildHeartTree();
+  fallTimer = startFallingHearts();
+}
+
+// يفتح تلقائي
+setTimeout(openPage, 1200);
+
+// اختياري: لو حد ضغط يفتح فورًا
+startBtn.addEventListener("click", openPage, { once: true });
+
 
   // Optional: rebuild tree on orientation/resize for better mobile fit
   let resizeDebounce = null;
