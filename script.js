@@ -75,25 +75,14 @@
     sEl.textContent = String(secs).padStart(2, "0");
   }
 
-  // ===== Tree growth (MORE FLOWERS) =====
+  // ===== Tree growth =====
   function buildHeartTree() {
     crown.innerHTML = "";
 
-    const palette = [
-      "#ff7f92",
-      "#ff92a3",
-      "#ffb5c2",
-      "#ffcbd6",
-      "#ff6f88",
-      "#f7b8c5",
-      "#f59aac",
-    ];
-
+    const palette = ["#ff7f92", "#ff92a3", "#ffb5c2", "#ffcbd6", "#ff6f88", "#f7b8c5", "#f59aac"];
     const leavesBuffer = [];
     const mobile = window.innerWidth <= 768;
-
-    // ✅ كثافة أعلى بوضوح
-    const totalLeaves = mobile ? 320 : 520;
+    const totalLeaves = mobile ? 150 : 280;
 
     const crownRect = crown.getBoundingClientRect();
     const W = Math.max(180, Math.round(crownRect.width));
@@ -107,27 +96,24 @@
 
       const t = rand(0, Math.PI * 2);
       const p = heartPoint(t);
+      const shapeScale = mobile ? rand(6.8, 9.2) : rand(6.5, 9.0);
 
-      // ✅ انتشار أكبر شوية عشان الشكل يبقى أغنى
-      const shapeScale = mobile ? rand(6.9, 10.8) : rand(6.5, 9.6);
-
-      let x = cx + p.x * shapeScale + rand(-8, 8);
-      let y = cy - p.y * shapeScale + rand(-10, 10);
+      let x = cx + p.x * shapeScale + rand(-7, 7);
+      let y = cy - p.y * shapeScale + rand(-8, 8);
 
       x = Math.max(6, Math.min(W - 24, x));
       y = Math.max(6, Math.min(H - 24, y));
 
-      // ✅ ورد أكبر قليلًا
-      const size = rand(mobile ? 10 : 12, mobile ? 18 : 24);
+      const size = rand(mobile ? 8 : 10, mobile ? 14 : 18);
 
       leaf.style.left = `${x}px`;
       leaf.style.top = `${y}px`;
       leaf.style.width = `${size}px`;
       leaf.style.height = `${size}px`;
       leaf.style.background = palette[Math.floor(Math.random() * palette.length)];
-      leaf.style.opacity = `${rand(0.84, 1)}`;
+      leaf.style.opacity = `${rand(0.82, 1)}`;
       leaf.style.animationDelay = `${rand(0, 3)}s`;
-      leaf.style.animationDuration = `${rand(2.6, 4.6)}s`;
+      leaf.style.animationDuration = `${rand(2.8, 4.9)}s`;
 
       const st = document.createElement("style");
       st.textContent = `
@@ -141,7 +127,6 @@
       leavesBuffer.push(leaf);
     }
 
-    // Bottom -> top build
     leavesBuffer.sort((a, b) => parseFloat(b.style.top) - parseFloat(a.style.top));
 
     let idx = 0;
@@ -152,7 +137,7 @@
       }
 
       const progress = idx / leavesBuffer.length;
-      const chunk = Math.min(14, 3 + Math.floor(progress * 11)); // أسرع شوية
+      const chunk = Math.min(10, 2 + Math.floor(progress * 8));
 
       for (let k = 0; k < chunk && idx < leavesBuffer.length; k++, idx++) {
         const leaf = leavesBuffer[idx];
@@ -166,42 +151,33 @@
           leaf.style.transform = "scale(1) rotate(-45deg)";
         });
       }
-    }, 60);
+    }, 75);
 
     return timer;
   }
 
-  // ===== Falling hearts (MORE DENSITY) =====
+  // ===== Falling hearts =====
   function startFallingHearts() {
-    const palette = [
-      "#ff7f92",
-      "#ff92a3",
-      "#ffb5c2",
-      "#ffcbd6",
-      "#ff6f88",
-      "#f7b8c5",
-      "#f59aac",
-    ];
+    const palette = ["#ff7f92", "#ff92a3", "#ffb5c2", "#ffcbd6", "#ff6f88", "#f7b8c5", "#f59aac"];
 
     function spawn() {
       const h = document.createElement("span");
       h.className = "leaf falling";
       const mobile = window.innerWidth <= 768;
-      const size = rand(mobile ? 8 : 9, mobile ? 14 : 16);
+      const size = rand(mobile ? 7 : 8, mobile ? 12 : 15);
 
       h.style.left = `${rand(0, 100)}vw`;
       h.style.width = `${size}px`;
       h.style.height = `${size}px`;
       h.style.background = palette[Math.floor(Math.random() * palette.length)];
       h.style.animationDuration = `${rand(6, 11)}s`;
-      h.style.opacity = `${rand(0.4, 0.9)}`;
+      h.style.opacity = `${rand(0.35, 0.85)}`;
 
       document.body.appendChild(h);
       setTimeout(() => h.remove(), 12000);
     }
 
-    // ✅ كان 520 / 280 → بقى أكثف
-    const fallInterval = window.innerWidth <= 768 ? 180 : 140;
+    const fallInterval = window.innerWidth <= 768 ? 520 : 280;
     return setInterval(spawn, fallInterval);
   }
 
