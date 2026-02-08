@@ -1,12 +1,8 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Ahmed ♥ Nour — Wedding Countdown</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,7 +12,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <!-- Intro overlay -->
@@ -29,51 +25,55 @@
     </div>
   </div>
 
-  <!-- Main card -->
-  <section class="wrap" id="mainCard">
-    <div class="left">
-      <div class="textBlock">
-        <h1>Ahmed <span class="heartMark">♥</span> Nour</h1>
-        <p class="message" id="message"></p>
-      </div>
-
-      <div class="countWrap">
-        <div class="countLabel" id="countLabel">Time left until the wedding:</div>
-
-        <div class="count">
-          <div class="unit">
-            <div class="num" id="d">0</div>
-            <div class="txt">DAYS</div>
-          </div>
-          <div class="unit">
-            <div class="num" id="h">0</div>
-            <div class="txt">HOURS</div>
-          </div>
-          <div class="unit">
-            <div class="num" id="m">0</div>
-            <div class="txt">MINS</div>
-          </div>
-          <div class="unit">
-            <div class="num" id="s">0</div>
-            <div class="txt">SECS</div>
-          </div>
+  <!-- wrapper for full-screen fit -->
+  <div id="fit">
+    <!-- Main card -->
+    <section class="wrap" id="mainCard">
+      <div class="left">
+        <div class="textBlock">
+          <h1>Ahmed <span class="heartMark">♥</span> Nour</h1>
+          <p class="message" id="message"></p>
         </div>
 
-        <div class="dateLine" id="dateLine"></div>
+        <div class="countWrap">
+          <div class="countLabel" id="countLabel">Time left until the wedding:</div>
+
+          <div class="count">
+            <div class="unit">
+              <div class="num" id="d">0</div>
+              <div class="txt">DAYS</div>
+            </div>
+            <div class="unit">
+              <div class="num" id="h">0</div>
+              <div class="txt">HOURS</div>
+            </div>
+            <div class="unit">
+              <div class="num" id="m">0</div>
+              <div class="txt">MINS</div>
+            </div>
+            <div class="unit">
+              <div class="num" id="s">0</div>
+              <div class="txt">SECS</div>
+            </div>
+          </div>
+
+          <div class="dateLine" id="dateLine"></div>
+        </div>
       </div>
-    </div>
 
-    <div class="right">
-      <div class="ground"></div>
-      <div class="branch b1"></div>
-      <div class="branch b2"></div>
-      <div class="trunk"></div>
-      <div class="crown" id="crown"></div>
-    </div>
+      <div class="right">
+        <div class="ground"></div>
+        <div class="branch b1"></div>
+        <div class="branch b2"></div>
+        <div class="trunk"></div>
+        <div class="crown" id="crown"></div>
+      </div>
 
-    <div class="sig">Ahmed ♥ Nour</div>
-  </section>
+      <div class="sig">Ahmed ♥ Nour</div>
+    </section>
+  </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
+  

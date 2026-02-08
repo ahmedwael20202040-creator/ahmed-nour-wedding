@@ -32,8 +32,29 @@ We are counting the moments until we begin our forever story.`;
     // x = 16 sin^3(t)
     // y = 13cos(t)-5cos(2t)-2cos(3t)-cos(4t)
     const x = 16 * Math.pow(Math.sin(t), 3);
-    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+    const y =
+      13 * Math.cos(t) -
+      5 * Math.cos(2 * t) -
+      2 * Math.cos(3 * t) -
+      Math.cos(4 * t);
     return { x, y };
+  }
+
+  // ===== Fit to screen (important for mobile full view) =====
+  function fitToScreen() {
+    const wrap = document.querySelector(".wrap");
+    if (!wrap) return;
+
+    // base design size
+    const baseW = 390;
+    const baseH = 844;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scale = Math.min(vw / baseW, vh / baseH);
+
+    wrap.style.transformOrigin = "top center";
+    wrap.style.transform = `scale(${scale})`;
   }
 
   // ===== Init text/date =====
@@ -80,7 +101,16 @@ We are counting the moments until we begin our forever story.`;
   function buildHeartTree() {
     crown.innerHTML = "";
 
-    const palette = ["#ff7f92", "#ff92a3", "#ffb5c2", "#ffcbd6", "#ff6f88", "#f7b8c5", "#f59aac"];
+    const palette = [
+      "#ff7f92",
+      "#ff92a3",
+      "#ffb5c2",
+      "#ffcbd6",
+      "#ff6f88",
+      "#f7b8c5",
+      "#f59aac",
+    ];
+
     const leavesBuffer = [];
     const totalLeaves = window.innerWidth <= 768 ? 170 : 300;
 
@@ -105,7 +135,10 @@ We are counting the moments until we begin our forever story.`;
       x = Math.max(8, Math.min(W - 28, x));
       y = Math.max(8, Math.min(H - 28, y));
 
-      const size = rand(window.innerWidth <= 768 ? 9 : 12, window.innerWidth <= 768 ? 16 : 22);
+      const size = rand(
+        window.innerWidth <= 768 ? 9 : 12,
+        window.innerWidth <= 768 ? 16 : 22
+      );
 
       leaf.style.left = `${x}px`;
       leaf.style.top = `${y}px`;
@@ -135,14 +168,14 @@ We are counting the moments until we begin our forever story.`;
     leavesBuffer.sort((a, b) => parseFloat(b.style.top) - parseFloat(a.style.top));
 
     let idx = 0;
-    const growTimer = setInterval(() => {
+    const timer = setInterval(() => {
       if (idx >= leavesBuffer.length) {
-        clearInterval(growTimer);
+        clearInterval(timer);
         return;
       }
 
       const progress = idx / leavesBuffer.length;
-      const chunk = Math.min(11, 2 + Math.floor(progress * 9)); // accelerate
+      const chunk = Math.min(11, 2 + Math.floor(progress * 9));
 
       for (let k = 0; k < chunk && idx < leavesBuffer.length; k++, idx++) {
         const leaf = leavesBuffer[idx];
@@ -158,12 +191,20 @@ We are counting the moments until we begin our forever story.`;
       }
     }, 75);
 
-    return growTimer;
+    return timer;
   }
 
   // ===== Falling hearts =====
   function startFallingHearts() {
-    const palette = ["#ff7f92", "#ff92a3", "#ffb5c2", "#ffcbd6", "#ff6f88", "#f7b8c5", "#f59aac"];
+    const palette = [
+      "#ff7f92",
+      "#ff92a3",
+      "#ffb5c2",
+      "#ffcbd6",
+      "#ff6f88",
+      "#f7b8c5",
+      "#f59aac",
+    ];
 
     function spawn() {
       const h = document.createElement("span");
@@ -184,44 +225,65 @@ We are counting the moments until we begin our forever story.`;
     }
 
     const fallInterval = window.innerWidth <= 768 ? 520 : 260;
-    const timer = setInterval(spawn, fallInterval);
-    return timer;
+    return setInterval(spawn, fallInterval);
   }
 
   // ===== Start flow =====
   let countdownTimer = null;
   let fallTimer = null;
   let growTimer = null;
+  let opened = false;
 
- function openPage() {
-  intro.classList.add("hidden");
-  mainCard.classList.add("show");
+  function openPage() {
+    if (opened) return; // prevent duplicate starts
+    opened = true;
 
-  updateCountdown();
-  countdownTimer = setInterval(updateCountdown, 1000);
+    if (intro) intro.classList.add("hidden");
+    if (mainCard) mainCard.classList.add("show");
 
-  growTimer = buildHeartTree();
-  fallTimer = startFallingHearts();
-}
+    fitToScreen();
+    updateCountdown();
 
-// يفتح تلقائي
-setTimeout(openPage, 1200);
+    if (countdownTimer) clearInterval(countdownTimer);
+    countdownTimer = setInterval(updateCountdown, 1000);
 
-// اختياري: لو حد ضغط يفتح فورًا
-startBtn.addEventListener("click", openPage, { once: true });
+    if (growTimer) clearInterval(growTimer);
+    growTimer = buildHeartTree();
 
+    if (fallTimer) clearInterval(fallTimer);
+    fallTimer = startFallingHearts();
+  }
 
-  // Optional: rebuild tree on orientation/resize for better mobile fit
+  // Auto open
+  setTimeout(openPage, 1200);
+
+  // Optional manual open
+  if (startBtn) {
+    startBtn.addEventListener("click", openPage, { once: true });
+  }
+
+  // Refit on resize/orientation
   let resizeDebounce = null;
   window.addEventListener("resize", () => {
+    fitToScreen();
+
     if (!mainCard.classList.contains("show")) return;
     clearTimeout(resizeDebounce);
     resizeDebounce = setTimeout(() => {
       if (growTimer) clearInterval(growTimer);
       growTimer = buildHeartTree();
+
       if (fallTimer) clearInterval(fallTimer);
       fallTimer = startFallingHearts();
+
       updateCountdown();
     }, 250);
   });
+
+  window.addEventListener("orientationchange", () => {
+    setTimeout(fitToScreen, 120);
+  });
+
+  // initial fit
+  fitToScreen();
 })();

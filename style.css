@@ -512,3 +512,35 @@ h1 .heartMark {
     opacity: 0.55 !important;
   }
 }
+/* disable intro بالكامل */
+.intro {
+  display: none !important;
+}
+/* ===== Full-screen fit on mobile (no cut, no scroll) ===== */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+#fit {
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+/* المقاس الأساسي للتصميم */
+.wrap {
+  width: 390px;   /* iPhone width base */
+  height: 844px;  /* iPhone height base */
+  max-width: none !important;
+  min-height: 0 !important;
+  border-radius: 24px;
+  transform-origin: top center;
+}
+
+/* على الموبايل: منع السكرول نهائيًا */
+@media (max-width: 900px) {
+  html, body { overflow: hidden; }
+}
