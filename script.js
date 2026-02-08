@@ -1,4 +1,3 @@
-// script.js
 (() => {
   // ===== Elements =====
   const intro = document.getElementById("intro");
@@ -17,15 +16,12 @@
   const crown = document.getElementById("crown");
 
   // ===== Data =====
-  const weddingDate = new Date(2026, 5, 6, 19, 0, 0); // June 6, 2026 - 7:00 PM local
+  const weddingDate = new Date(2026, 5, 6, 19, 0, 0);
 
   // ===== Helpers =====
   const rand = (min, max) => Math.random() * (max - min) + min;
 
   function heartPoint(t) {
-    // Parametric heart:
-    // x = 16 sin^3(t)
-    // y = 13cos(t)-5cos(2t)-2cos(3t)-cos(4t)
     const x = 16 * Math.pow(Math.sin(t), 3);
     const y =
       13 * Math.cos(t) -
@@ -35,32 +31,7 @@
     return { x, y };
   }
 
- function fitToScreen() {
-  const wrap = document.querySelector(".wrap");
-  if (!wrap) return;
-
-  // على الديسكتوب: بدون أي scale
-  if (window.innerWidth > 768) {
-    wrap.style.transform = "none";
-    wrap.style.transformOrigin = "center center";
-    return;
-  }
-
-  // على الموبايل: scale لتناسب الشاشة
-  const baseW = 390;
-  const baseH = 844;
-
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const scale = Math.min(vw / baseW, vh / baseH);
-
-  wrap.style.transformOrigin = "top center";
-  wrap.style.transform = `scale(${scale})`;
-}
-
-
   // ===== Init text/date =====
-  // NOTE: using HTML line breaks (instead of textContent + pre-line)
   messageEl.innerHTML = `
     To Ahmed and Nour,<br><br>
     Every passing day brings us closer to the most beautiful day of our lives. 💍<br><br>
@@ -108,25 +79,16 @@
   function buildHeartTree() {
     crown.innerHTML = "";
 
-    const palette = [
-      "#ff7f92",
-      "#ff92a3",
-      "#ffb5c2",
-      "#ffcbd6",
-      "#ff6f88",
-      "#f7b8c5",
-      "#f59aac",
-    ];
-
+    const palette = ["#ff7f92", "#ff92a3", "#ffb5c2", "#ffcbd6", "#ff6f88", "#f7b8c5", "#f59aac"];
     const leavesBuffer = [];
-    const totalLeaves = window.innerWidth <= 768 ? 170 : 300;
+    const mobile = window.innerWidth <= 768;
+    const totalLeaves = mobile ? 150 : 280;
 
-    // Use actual crown size for better fit
     const crownRect = crown.getBoundingClientRect();
-    const W = Math.max(220, Math.round(crownRect.width));
-    const H = Math.max(180, Math.round(crownRect.height));
+    const W = Math.max(180, Math.round(crownRect.width));
+    const H = Math.max(150, Math.round(crownRect.height));
     const cx = W / 2;
-    const cy = H / 2 + 6;
+    const cy = H / 2 + (mobile ? 4 : 8);
 
     for (let i = 0; i < totalLeaves; i++) {
       const leaf = document.createElement("span");
@@ -134,19 +96,15 @@
 
       const t = rand(0, Math.PI * 2);
       const p = heartPoint(t);
-      const mobile = window.innerWidth <= 768;
-      const scale = mobile ? rand(7.6, 10.2) : rand(6.8, 9.1);
+      const shapeScale = mobile ? rand(6.8, 9.2) : rand(6.5, 9.0);
 
-      let x = cx + p.x * scale + rand(-8, 8);
-      let y = cy - p.y * scale + rand(-10, 10);
+      let x = cx + p.x * shapeScale + rand(-7, 7);
+      let y = cy - p.y * shapeScale + rand(-8, 8);
 
-      x = Math.max(8, Math.min(W - 28, x));
-      y = Math.max(8, Math.min(H - 28, y));
+      x = Math.max(6, Math.min(W - 24, x));
+      y = Math.max(6, Math.min(H - 24, y));
 
-      const size = rand(
-        window.innerWidth <= 768 ? 9 : 12,
-        window.innerWidth <= 768 ? 16 : 22
-      );
+      const size = rand(mobile ? 8 : 10, mobile ? 14 : 18);
 
       leaf.style.left = `${x}px`;
       leaf.style.top = `${y}px`;
@@ -157,12 +115,9 @@
       leaf.style.animationDelay = `${rand(0, 3)}s`;
       leaf.style.animationDuration = `${rand(2.8, 4.9)}s`;
 
-      // Per-leaf pseudo-element sizing
       const st = document.createElement("style");
       st.textContent = `
-        .leaf.leaf-${i}::before,.leaf.leaf-${i}::after{
-          width:${size}px;height:${size}px;
-        }
+        .leaf.leaf-${i}::before,.leaf.leaf-${i}::after{width:${size}px;height:${size}px;}
         .leaf.leaf-${i}::before{top:${-size / 2}px;left:0}
         .leaf.leaf-${i}::after{left:${size / 2}px;top:0}
       `;
@@ -172,7 +127,6 @@
       leavesBuffer.push(leaf);
     }
 
-    // Bottom -> top build
     leavesBuffer.sort((a, b) => parseFloat(b.style.top) - parseFloat(a.style.top));
 
     let idx = 0;
@@ -183,7 +137,7 @@
       }
 
       const progress = idx / leavesBuffer.length;
-      const chunk = Math.min(11, 2 + Math.floor(progress * 9));
+      const chunk = Math.min(10, 2 + Math.floor(progress * 8));
 
       for (let k = 0; k < chunk && idx < leavesBuffer.length; k++, idx++) {
         const leaf = leavesBuffer[idx];
@@ -204,35 +158,26 @@
 
   // ===== Falling hearts =====
   function startFallingHearts() {
-    const palette = [
-      "#ff7f92",
-      "#ff92a3",
-      "#ffb5c2",
-      "#ffcbd6",
-      "#ff6f88",
-      "#f7b8c5",
-      "#f59aac",
-    ];
+    const palette = ["#ff7f92", "#ff92a3", "#ffb5c2", "#ffcbd6", "#ff6f88", "#f7b8c5", "#f59aac"];
 
     function spawn() {
       const h = document.createElement("span");
       h.className = "leaf falling";
-
       const mobile = window.innerWidth <= 768;
-      const size = rand(mobile ? 7 : 8, mobile ? 13 : 16);
+      const size = rand(mobile ? 7 : 8, mobile ? 12 : 15);
 
       h.style.left = `${rand(0, 100)}vw`;
       h.style.width = `${size}px`;
       h.style.height = `${size}px`;
       h.style.background = palette[Math.floor(Math.random() * palette.length)];
       h.style.animationDuration = `${rand(6, 11)}s`;
-      h.style.opacity = `${rand(0.35, 0.9)}`;
+      h.style.opacity = `${rand(0.35, 0.85)}`;
 
       document.body.appendChild(h);
       setTimeout(() => h.remove(), 12000);
     }
 
-    const fallInterval = window.innerWidth <= 768 ? 520 : 260;
+    const fallInterval = window.innerWidth <= 768 ? 520 : 280;
     return setInterval(spawn, fallInterval);
   }
 
@@ -243,13 +188,12 @@
   let opened = false;
 
   function openPage() {
-    if (opened) return; // prevent duplicate starts
+    if (opened) return;
     opened = true;
 
     if (intro) intro.classList.add("hidden");
     if (mainCard) mainCard.classList.add("show");
 
-    fitToScreen();
     updateCountdown();
 
     if (countdownTimer) clearInterval(countdownTimer);
@@ -262,19 +206,14 @@
     fallTimer = startFallingHearts();
   }
 
-  // Auto open
-  setTimeout(openPage, 1200);
+  setTimeout(openPage, 700);
 
-  // Optional manual open
   if (startBtn) {
     startBtn.addEventListener("click", openPage, { once: true });
   }
 
-  // Refit on resize/orientation
   let resizeDebounce = null;
   window.addEventListener("resize", () => {
-    fitToScreen();
-
     if (!mainCard.classList.contains("show")) return;
     clearTimeout(resizeDebounce);
     resizeDebounce = setTimeout(() => {
@@ -287,11 +226,4 @@
       updateCountdown();
     }, 250);
   });
-
-  window.addEventListener("orientationchange", () => {
-    setTimeout(fitToScreen, 120);
-  });
-
-  // initial fit
-  fitToScreen();
 })();
