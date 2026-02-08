@@ -398,3 +398,90 @@ h1 .heartMark {
     margin-top: 2px !important;
   }
 }
+/* ===== Desktop/Tablet: full card width (NOT mobile-locked) ===== */
+@media (min-width: 769px) {
+  body {
+    padding: 22px !important;
+    overflow: auto !important;
+  }
+
+  #fit {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  .wrap {
+    width: min(1200px, 95vw) !important;
+    height: auto !important;
+    min-height: min(760px, 92vh) !important;
+    border-radius: 34px !important;
+    padding: 26px 28px !important;
+
+    display: grid !important;
+    grid-template-columns: 1.05fr 1fr !important;
+    grid-template-rows: auto !important;
+    gap: 10px !important;
+
+    transform: none !important; /* يلغي scale الخاص بالموبايل */
+  }
+
+  .right {
+    min-height: 620px !important;
+    order: 2 !important;
+  }
+
+  .left {
+    order: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 8px 8px 8px 6px !important;
+  }
+
+  h1 { font-size: clamp(56px, 5.2vw, 90px) !important; }
+  .message { font-size: clamp(24px, 1.7vw, 36px) !important; line-height: 1.72 !important; }
+
+  .countLabel { font-size: clamp(36px, 2.3vw, 52px) !important; }
+  .num { font-size: clamp(54px, 4.3vw, 82px) !important; }
+  .txt { font-size: clamp(20px, 1.2vw, 24px) !important; }
+  .dateLine { font-size: clamp(26px, 1.55vw, 34px) !important; }
+
+  .crown {
+    width: 370px !important;
+    height: 320px !important;
+    bottom: 250px !important;
+  }
+
+  .trunk {
+    width: 42px !important;
+    height: 260px !important;
+    bottom: 44px !important;
+  }
+
+  .b1 { width: 86px !important; bottom: 184px !important; }
+  .b2 { width: 76px !important; bottom: 154px !important; }
+  .ground { width: 74% !important; height: 28px !important; bottom: 20px !important; }
+
+  .sig { display: block !important; }
+}
+
+/* ===== Mobile only: keep full-screen fitted card ===== */
+@media (max-width: 768px) {
+  #fit {
+    width: 100vw;
+    height: 100dvh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .wrap {
+    width: 390px !important;
+    height: 844px !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    transform-origin: top center !important;
+  }
+}
