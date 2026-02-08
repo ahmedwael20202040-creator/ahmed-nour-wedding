@@ -35,22 +35,29 @@
     return { x, y };
   }
 
-  // ===== Fit to screen (important for mobile full view) =====
-  function fitToScreen() {
-    const wrap = document.querySelector(".wrap");
-    if (!wrap) return;
+ function fitToScreen() {
+  const wrap = document.querySelector(".wrap");
+  if (!wrap) return;
 
-    // base design size
-    const baseW = 390;
-    const baseH = 844;
-
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const scale = Math.min(vw / baseW, vh / baseH);
-
-    wrap.style.transformOrigin = "top center";
-    wrap.style.transform = `scale(${scale})`;
+  // على الديسكتوب: بدون أي scale
+  if (window.innerWidth > 768) {
+    wrap.style.transform = "none";
+    wrap.style.transformOrigin = "center center";
+    return;
   }
+
+  // على الموبايل: scale لتناسب الشاشة
+  const baseW = 390;
+  const baseH = 844;
+
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const scale = Math.min(vw / baseW, vh / baseH);
+
+  wrap.style.transformOrigin = "top center";
+  wrap.style.transform = `scale(${scale})`;
+}
+
 
   // ===== Init text/date =====
   // NOTE: using HTML line breaks (instead of textContent + pre-line)
