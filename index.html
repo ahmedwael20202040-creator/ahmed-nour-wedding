@@ -1,353 +1,64 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
   <title>Ahmed ♥ Nour — Wedding Countdown</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-  <style>
-    :root{
-      --bg1:#f8dce7;
-      --bg2:#f6d2e1;
-      --bg3:#f2c8db;
-      --card:#f7f7f9;
-      --text:#3f3338;
-      --muted:#8a7f84;
-      --accent:#d47b92;
-      --line:#e7c8d2;
-      --trunk1:#a8745b;
-      --trunk2:#7e5748;
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      overflow:auto;
-      padding:22px;
-      display:grid;
-      place-items:center;
-      background:
-        radial-gradient(circle at 12% 20%, rgba(255,255,255,.22) 0 2px, transparent 3px) 0 0/120px 120px,
-        radial-gradient(circle at 82% 18%, rgba(255,255,255,.18) 0 2px, transparent 3px) 0 0/160px 160px,
-        linear-gradient(135deg,var(--bg1),var(--bg2) 48%,var(--bg3));
-      animation:bgShift 12s ease-in-out infinite alternate;
-    }
-    @keyframes bgShift{
-      from{background-position:0 0,0 0,0 0}
-      to{background-position:30px -24px,-26px 18px,0 0}
-    }
-
-    /* ===== شاشة البداية ===== */
-    .intro{
-      position:fixed;
-      inset:0;
-      z-index:99999;
-      display:grid;
-      place-items:center;
-      background:
-        radial-gradient(1000px 500px at 50% -10%, rgba(255,255,255,.24), transparent 60%),
-        linear-gradient(135deg,#f9d8e6,#f5cfe0 45%,#efbfd4);
-      transition:opacity .45s ease, visibility .45s ease;
-    }
-    .intro.hidden{
-      opacity:0;
-      visibility:hidden;
-      pointer-events:none;
-    }
-
-    .heartBtn{
-      width:128px;
-      height:128px;
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      position:relative;
-      transform:rotate(-45deg);
-      animation:pulse 1.5s ease-in-out infinite;
-      filter:drop-shadow(0 10px 18px rgba(205,91,128,.35));
-      -webkit-tap-highlight-color: transparent;
-    }
-    .heartBtn::before,
-    .heartBtn::after{
-      content:"";
-      position:absolute;
-      width:128px;
-      height:128px;
-      background:linear-gradient(145deg,#ff7ea5,#e85f8e);
-      border-radius:20px;
-    }
-    .heartBtn::before{top:0;left:0}
-    .heartBtn::after{top:-64px;left:0;border-radius:999px}
-    .heartBtn span{
-      position:absolute;
-      left:64px;
-      top:0;
-      width:128px;
-      height:128px;
-      background:linear-gradient(145deg,#ff7ea5,#e85f8e);
-      border-radius:999px;
-    }
-    @keyframes pulse{
-      0%,100%{transform:rotate(-45deg) scale(1)}
-      50%{transform:rotate(-45deg) scale(1.08)}
-    }
-    .introText{
-      margin-top:28px;
-      text-align:center;
-      color:#6c4555;
-      font-weight:600;
-      font-size:20px;
-      letter-spacing:.3px;
-    }
-
-    /* ===== المحتوى ===== */
-    .wrap{
-      width:min(1200px,95vw);
-      min-height:min(760px,92vh);
-      background:var(--card);
-      border-radius:34px;
-      border:1px solid rgba(255,255,255,.8);
-      box-shadow:0 22px 60px rgba(90,55,70,.18);
-      overflow:hidden;
-      position:relative;
-      padding:26px 28px;
-      display:grid;
-      grid-template-columns:1.05fr 1fr;
-      gap:10px;
-      opacity:0;
-      transform:translateY(12px) scale(.995);
-      transition:opacity .6s ease, transform .6s ease;
-    }
-    .wrap.show{
-      opacity:1;
-      transform:none;
-    }
-
-    .left{
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      padding:8px 8px 8px 6px;
-    }
-
-    h1{
-      margin:0 0 14px;
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(56px,5.2vw,90px);
-      line-height:.95;
-      color:#46383e;
-      font-weight:700;
-    }
-    h1 .heartMark{ color:#d07386; padding:0 .16em; }
-
-    .message{
-      margin-top:8px;
-      font-size:clamp(24px,1.7vw,36px);
-      line-height:1.72;
-      color:#60565b;
-      max-width:95%;
-      white-space:pre-line;
-      font-weight:400;
-    }
-
-    .countWrap{
-      margin-top:18px;
-      padding-top:16px;
-      border-top:2px dashed var(--line);
-    }
-    .countLabel{
-      font-family:"Cormorant Garamond",serif;
-      color:var(--accent);
-      font-size:clamp(36px,2.3vw,52px);
-      margin-bottom:8px;
-      font-weight:600;
-      font-style:italic;
-    }
-
-    .count{
-      display:flex;
-      gap:26px;
-      align-items:flex-end;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-    .unit{min-width:110px}
-    .num{
-      font-size:clamp(54px,4.3vw,82px);
-      line-height:.95;
-      font-weight:700;
-      color:#4a3d43;
-      letter-spacing:.5px;
-    }
-    .txt{
-      margin-top:7px;
-      font-size:clamp(20px,1.2vw,24px);
-      color:#9b8f95;
-      letter-spacing:.8px;
-      text-transform:uppercase;
-      font-weight:500;
-    }
-
-    .dateLine{
-      margin-top:18px;
-      padding-left:14px;
-      border-left:4px solid #e78ba5;
-      color:#8f868b;
-      font-size:clamp(26px,1.55vw,34px);
-      font-weight:400;
-    }
-
-    .right{
-      position:relative;
-      overflow:hidden;
-      border-radius:18px;
-      min-height:620px;
-    }
-
-    .ground{
-      position:absolute;
-      bottom:20px;
-      left:50%;
-      transform:translateX(-50%);
-      width:74%;
-      height:28px;
-      border-radius:999px;
-      background:radial-gradient(ellipse at center, rgba(173,124,141,.35), rgba(173,124,141,0));
-      filter:blur(3px);
-      z-index:1;
-    }
-
-    .trunk{
-      position:absolute;
-      bottom:44px;
-      left:50%;
-      transform:translateX(-50%);
-      width:42px;
-      height:260px;
-      border-radius:14px;
-      background:linear-gradient(180deg,var(--trunk1),var(--trunk2));
-      box-shadow:inset -8px 0 12px rgba(0,0,0,.12);
-      z-index:3;
-      animation:sway 4.4s ease-in-out infinite;
-      transform-origin:bottom center;
-    }
-    .branch{
-      position:absolute;
-      height:10px;
-      border-radius:99px;
-      background:linear-gradient(90deg,#967161,#7f5e50);
-      z-index:2;
-      transform-origin:left center;
-      opacity:.95;
-    }
-    .b1{width:86px; bottom:184px; left:50%; transform:translateX(-2px) rotate(-24deg)}
-    .b2{width:76px; bottom:154px; left:50%; transform:translateX(7px) rotate(18deg)}
-    @keyframes sway{
-      0%,100%{transform:translateX(-50%) rotate(0deg)}
-      50%{transform:translateX(-50%) rotate(.8deg)}
-    }
-
-    .crown{
-      position:absolute;
-      bottom:250px;
-      left:50%;
-      transform:translateX(-50%);
-      width:370px;
-      height:320px;
-      z-index:4;
-      filter:drop-shadow(0 8px 8px rgba(0,0,0,.12));
-    }
-
-    .leaf{
-      position:absolute;
-      width:16px;height:16px;
-      transform:rotate(-45deg);
-      border-radius:2px;
-      opacity:.96;
-      animation:leafFloat 3.4s ease-in-out infinite;
-      will-change:transform,opacity;
-    }
-    .leaf::before,.leaf::after{
-      content:"";
-      position:absolute;
-      width:16px;height:16px;border-radius:50%;
-      background:inherit;
-    }
-    .leaf::before{top:-8px;left:0}
-    .leaf::after{left:8px;top:0}
-    @keyframes leafFloat{
-      0%,100%{transform:translateY(0) rotate(-45deg)}
-      50%{transform:translateY(-5px) rotate(-45deg)}
-    }
-
-    .falling{
-      position:fixed;
-      top:-26px;
-      pointer-events:none;
-      z-index:9999;
-      animation:fall linear forwards;
-      opacity:.9;
-    }
-    @keyframes fall{
-      to{ transform:translateY(112vh) rotate(420deg); opacity:.08; }
-    }
-
-    @media (max-width: 980px){
-      body{padding:10px}
-      .wrap{
-        grid-template-columns:1fr;
-        padding:14px;
-        min-height:auto;
-      }
-      .right{order:1; min-height:360px; max-height:44vh;}
-      .left{order:2;}
-      h1{font-size:clamp(44px,11vw,72px)}
-      .message{font-size:clamp(20px,5.1vw,30px)}
-      .countLabel{font-size:clamp(30px,7vw,44px)}
-      .num{font-size:clamp(42px,12vw,66px)}
-      .txt{font-size:clamp(14px,3.6vw,18px)}
-      .dateLine{font-size:clamp(18px,4.2vw,24px)}
-      .crown{width:min(82vw,370px);height:min(68vw,320px);bottom:180px;}
-      .trunk{height:190px;bottom:22px;}
-      .b1{bottom:132px}.b2{bottom:108px}
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- شاشة القلب -->
+  <!-- Intro overlay -->
   <div class="intro" id="intro">
-    <div>
-      <button class="heartBtn" id="startBtn" aria-label="Open">
+    <div class="introBox">
+      <button class="heartBtn" id="startBtn" aria-label="Open our wedding page">
         <span></span>
       </button>
-      <div class="introText">Tap the heart to open</div>
+      <p class="introText">Tap the heart to open</p>
     </div>
   </div>
 
-  <!-- الصفحة الأساسية -->
+  <!-- Main card -->
   <section class="wrap" id="mainCard">
     <div class="left">
-      <div>
+      <div class="textBlock">
         <h1>Ahmed <span class="heartMark">♥</span> Nour</h1>
-        <div class="message" id="message"></div>
+        <p class="message" id="message"></p>
       </div>
 
       <div class="countWrap">
         <div class="countLabel" id="countLabel">Time left until the wedding:</div>
+
         <div class="count">
-          <div class="unit"><div class="num" id="d">0</div><div class="txt">Days</div></div>
-          <div class="unit"><div class="num" id="h">0</div><div class="txt">Hours</div></div>
-          <div class="unit"><div class="num" id="m">0</div><div class="txt">Mins</div></div>
-          <div class="unit"><div class="num" id="s">0</div><div class="txt">Secs</div></div>
+          <div class="unit">
+            <div class="num" id="d">0</div>
+            <div class="txt">DAYS</div>
+          </div>
+          <div class="unit">
+            <div class="num" id="h">0</div>
+            <div class="txt">HOURS</div>
+          </div>
+          <div class="unit">
+            <div class="num" id="m">0</div>
+            <div class="txt">MINS</div>
+          </div>
+          <div class="unit">
+            <div class="num" id="s">0</div>
+            <div class="txt">SECS</div>
+          </div>
         </div>
+
         <div class="dateLine" id="dateLine"></div>
       </div>
     </div>
@@ -359,162 +70,10 @@
       <div class="trunk"></div>
       <div class="crown" id="crown"></div>
     </div>
+
+    <div class="sig">Ahmed ♥ Nour</div>
   </section>
 
-  <script>
-    const weddingDate = new Date(2026, 5, 6, 19, 0, 0);
-    const messageText = `To Ahmed and Nour,
-
-Every passing day brings us closer to the most beautiful day of our lives. 💍
-
-We are counting the moments until we begin our forever story.`;
-
-    const intro = document.getElementById("intro");
-    const startBtn = document.getElementById("startBtn");
-    const mainCard = document.getElementById("mainCard");
-
-    document.getElementById("message").textContent = messageText;
-    const dateLine = document.getElementById("dateLine");
-    const fmtDate = weddingDate.toLocaleDateString("en-US", { month:"long", day:"numeric", year:"numeric" });
-    const fmtTime = weddingDate.toLocaleTimeString("en-US", { hour:"numeric", minute:"2-digit" });
-    dateLine.textContent = `Wedding Date: ${fmtDate} — ${fmtTime}`;
-
-    const dEl = document.getElementById("d");
-    const hEl = document.getElementById("h");
-    const mEl = document.getElementById("m");
-    const sEl = document.getElementById("s");
-    const countLabel = document.getElementById("countLabel");
-
-    let countdownTimer = null;
-    let fallTimer = null;
-    let growTimer = null;
-
-    function updateCountdown(){
-      const now = new Date();
-      let diff = weddingDate - now;
-      if(diff <= 0){
-        dEl.textContent = "0"; hEl.textContent = "0"; mEl.textContent = "0"; sEl.textContent = "0";
-        countLabel.textContent = "Congratulations to the beautiful couple! 💍❤️";
-        return;
-      }
-      const total = Math.floor(diff/1000);
-      const days = Math.floor(total/86400);
-      const hours = Math.floor((total%86400)/3600);
-      const mins = Math.floor((total%3600)/60);
-      const secs = total%60;
-
-      dEl.textContent = days;
-      hEl.textContent = String(hours).padStart(2,"0");
-      mEl.textContent = String(mins).padStart(2,"0");
-      sEl.textContent = String(secs).padStart(2,"0");
-    }
-
-    function rand(min,max){ return Math.random()*(max-min)+min; }
-
-    function startTreeAndEffects(){
-      const crown = document.getElementById("crown");
-      crown.innerHTML = "";
-
-      const palette = ["#ff7f92","#ff92a3","#ffb5c2","#ffcbd6","#ff6f88","#f7b8c5","#f59aac"];
-      const leavesBuffer = [];
-      const totalLeaves = 300;
-
-      function heartPoint(t){
-        const x = 16 * Math.pow(Math.sin(t),3);
-        const y = 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
-        return {x,y};
-      }
-
-      const W = 370, H = 320;
-      const cx = W/2, cy = H/2 + 8;
-
-      for(let i=0;i<totalLeaves;i++){
-        const leaf = document.createElement("span");
-        leaf.className = "leaf";
-
-        const t = rand(0, Math.PI*2);
-        const p = heartPoint(t);
-        const scale = rand(7.0, 9.2);
-
-        let x = cx + p.x * scale + rand(-8,8);
-        let y = cy - p.y * scale + rand(-10,10);
-
-        x = Math.max(8, Math.min(W - 28, x));
-        y = Math.max(8, Math.min(H - 28, y));
-
-        const size = rand(12,22);
-        leaf.style.left = `${x}px`;
-        leaf.style.top = `${y}px`;
-        leaf.style.width = `${size}px`;
-        leaf.style.height = `${size}px`;
-        leaf.style.background = palette[Math.floor(Math.random()*palette.length)];
-        leaf.style.opacity = `${rand(.82,1)}`;
-        leaf.style.animationDelay = `${rand(0,3)}s`;
-        leaf.style.animationDuration = `${rand(2.8,4.9)}s`;
-
-        const st = document.createElement("style");
-        st.textContent = `
-          .leaf.leaf-${i}::before,.leaf.leaf-${i}::after{
-            width:${size}px;height:${size}px;
-          }
-          .leaf.leaf-${i}::before{top:${-size/2}px;left:0}
-          .leaf.leaf-${i}::after{left:${size/2}px;top:0}
-        `;
-        document.head.appendChild(st);
-        leaf.classList.add(`leaf-${i}`);
-
-        leavesBuffer.push(leaf);
-      }
-
-      leavesBuffer.sort((a,b)=> parseFloat(b.style.top) - parseFloat(a.style.top));
-
-      let idx = 0;
-      growTimer = setInterval(()=>{
-        if(idx >= leavesBuffer.length){
-          clearInterval(growTimer);
-          return;
-        }
-        const progress = idx / leavesBuffer.length;
-        const chunk = Math.min(11, 2 + Math.floor(progress * 9));
-
-        for(let k=0;k<chunk && idx<leavesBuffer.length;k++,idx++){
-          const leaf = leavesBuffer[idx];
-          leaf.style.opacity = "0";
-          leaf.style.transform = "scale(.2) rotate(-45deg)";
-          crown.appendChild(leaf);
-
-          requestAnimationFrame(()=>{
-            leaf.style.transition = "transform 320ms ease, opacity 320ms ease";
-            leaf.style.opacity = "0.96";
-            leaf.style.transform = "scale(1) rotate(-45deg)";
-          });
-        }
-      },75);
-
-      function spawnFallingHeart(){
-        const h = document.createElement("span");
-        h.className = "leaf falling";
-        const size = rand(8,16);
-        h.style.left = `${rand(0,100)}vw`;
-        h.style.width = `${size}px`;
-        h.style.height = `${size}px`;
-        h.style.background = palette[Math.floor(Math.random()*palette.length)];
-        h.style.animationDuration = `${rand(6,11)}s`;
-        h.style.opacity = `${rand(.35,.9)}`;
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),12000);
-      }
-      fallTimer = setInterval(spawnFallingHeart,260);
-    }
-
-    startBtn.addEventListener("click", () => {
-      intro.classList.add("hidden");
-      mainCard.classList.add("show");
-
-      updateCountdown();
-      countdownTimer = setInterval(updateCountdown, 1000);
-      startTreeAndEffects();
-    }, { once:true });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
