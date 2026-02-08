@@ -1,366 +1,81 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Árbol de Corazones - Producto</title>
-  <style>
-    :root{
-      --bg:#f3f3f3;
-      --text:#111;
-      --muted:#555;
-      --line:#e5e5e5;
-      --orange:#ea8a22;
-      --orange-dark:#d57815;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="stylesheet" href="style.css?v=20" />
+<script src="script.js?v=20"></script>
 
-    *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      padding:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
-    }
+  <title>Ahmed ♥ Nour — Wedding Countdown</title>
 
-    .phone{
-      width:100%;
-      max-width:430px;
-      margin:0 auto;
-      min-height:100dvh;
-      background:#fff;
-      position:relative;
-      overflow:hidden;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-    /* Top bar */
-    .topbar{
-      height:82px;
-      display:flex;
-      align-items:center;
-      padding:0 14px;
-      border-bottom:1px solid #efefef;
-      background:#fff;
-      position:sticky;
-      top:0;
-      z-index:10;
-    }
-    .x{
-      width:30px;height:30px;
-      border:0;background:transparent;
-      font-size:34px;line-height:1;
-      color:#222;cursor:pointer;
-      padding:0;margin:0 6px 0 0;
-    }
-    .divider{
-      width:1px;height:34px;background:#e8e8e8;margin-right:10px;
-    }
-    .avatar{
-      width:44px;height:44px;border-radius:12px;
-      background:#111;
-      color:#fff;display:grid;place-items:center;
-      font-size:11px;font-weight:700;
-      margin-right:10px;
-      overflow:hidden;
-    }
-    .brand{font-size:38px;line-height:1}
-    .name{
-      font-size:38px;
-      font-weight:700;
-      letter-spacing:-.2px;
-    }
-    .share{
-      margin-left:auto;
-      width:44px;height:44px;border-radius:22px;
-      border:1px solid #e8e8e8;background:#fff;
-      font-size:20px;cursor:pointer;
-    }
-
-    /* Preview area */
-    .preview-wrap{
-      background:#f8f1ee;
-      padding:0;
-      border-bottom:1px solid #ececec;
-    }
-    .preview{
-      width:100%;
-      aspect-ratio: 4 / 3.15;
-      background:linear-gradient(90deg,#f0dfd4 0 10%, #f8efe9 10% 90%, #f0dfd4 90% 100%);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .paper{
-      position:absolute;
-      inset:18px 26px 18px 26px;
-      background:linear-gradient(180deg,#fbf3ef,#faede8);
-    }
-
-    .demo-text{
-      position:absolute;
-      left:38px; top:46px;
-      width:36%;
-      color:#5b4f4a;
-      font-size:11px;
-      line-height:1.35;
-    }
-    .demo-text .h{font-size:12px;margin-bottom:8px}
-    .demo-line{
-      position:absolute;left:40px;right:40px;bottom:55px;
-      height:2px;background:#2a2120;opacity:.75;
-    }
-    .demo-time{
-      position:absolute;left:42px;bottom:61px;
-      font-size:11px;color:#4e403d;
-    }
-
-    /* Heart tree graphic */
-    .tree{
-      position:absolute;
-      right:58px;
-      top:44px;
-      width:150px;height:170px;
-    }
-    .crown{
-      position:absolute;
-      top:0;left:10px;
-      width:120px;height:110px;
-      transform:rotate(-45deg);
-      background:radial-gradient(circle at 35% 35%, #ffd5ea, #ff95c5 60%, #ff5da4 100%);
-      border-radius:14px;
-      box-shadow:0 8px 18px rgba(255,95,162,.28);
-    }
-    .crown::before,.crown::after{
-      content:"";
-      position:absolute;
-      width:120px;height:110px;border-radius:50%;
-      background:inherit;
-    }
-    .crown::before{top:-58px;left:0}
-    .crown::after{left:58px;top:0}
-    .trunk{
-      position:absolute;
-      left:72px;bottom:0;
-      width:14px;height:58px;border-radius:8px;
-      background:linear-gradient(180deg,#43b9ad,#249d90);
-    }
-
-    .petal{
-      position:absolute;
-      color:#ff5fa6;
-      font-size:13px;
-      opacity:.85;
-      animation:fall 7s linear infinite;
-    }
-    .p1{left:22px;top:8px;animation-delay:.5s}
-    .p2{right:20px;top:18px;animation-delay:2s}
-    .p3{left:170px;top:168px;animation-delay:1.2s}
-
-    @keyframes fall{
-      0%{transform:translateY(0) rotate(0)}
-      100%{transform:translateY(22px) rotate(35deg)}
-    }
-
-    /* Product content */
-    .content{
-      background:#fff;
-      padding:16px 20px 110px;
-    }
-    .title{
-      font-size:23px;
-      line-height:1.22;
-      margin:0 0 10px;
-      font-weight:800;
-      letter-spacing:.1px;
-    }
-    .price{
-      font-size:43px;
-      font-weight:700;
-      margin:0 0 10px;
-    }
-    .rating{
-      display:flex;align-items:center;gap:8px;
-      color:#202020;
-      font-size:18px;
-      margin-bottom:14px;
-      white-space:nowrap;
-      flex-wrap:wrap;
-    }
-    .stars{
-      color:#f4b400;
-      letter-spacing:2px;
-      font-size:26px;
-      line-height:1;
-    }
-    .muted{color:#444}
-    .desc{
-      font-size:23px;
-      line-height:1.5;
-      color:#2c2c2c;
-      margin:0 0 12px;
-    }
-    .list{
-      margin:0;
-      padding-left:21px;
-      font-size:18px;
-      line-height:1.7;
-    }
-    .list a{
-      color:#d48a2b;
-      text-decoration:none;
-      font-weight:500;
-    }
-    .list a:hover{ text-decoration:underline; }
-
-    /* Bottom purchase bar */
-    .bottom{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:0;
-      width:100%;
-      max-width:430px;
-      background:#fff;
-      border-top:1px solid var(--line);
-      padding:12px 14px calc(12px + env(safe-area-inset-bottom));
-      display:flex;
-      align-items:center;
-      gap:10px;
-      z-index:20;
-    }
-    .bottom .b-price{
-      font-size:40px;
-      font-weight:700;
-      margin-right:auto;
-    }
-    .cta{
-      border:0;
-      background:var(--orange);
-      color:#fff;
-      font-size:16px;
-      font-weight:700;
-      border-radius:28px;
-      padding:13px 26px;
-      min-width:168px;
-      cursor:pointer;
-      box-shadow:0 3px 0 var(--orange-dark);
-    }
-    .cta:active{ transform:translateY(1px); box-shadow:0 2px 0 var(--orange-dark); }
-
-    /* Very small screens */
-    @media (max-width:360px){
-      .name{font-size:24px}
-      .title{font-size:39px}
-      .price,.bottom .b-price{font-size:34px}
-      .desc{font-size:18px}
-      .stars{font-size:20px}
-      .cta{min-width:145px;padding:12px 18px}
-    }
-  </style>
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
-  <div class="phone">
-    <header class="topbar">
-      <button class="x" aria-label="Close">×</button>
-      <div class="divider"></div>
-      <div class="avatar"><span class="brand">🖤</span></div>
-      <div class="name">Alex Dev</div>
-      <button class="share" aria-label="Share">⤴︎</button>
-    </header>
-
-    <section class="preview-wrap">
-      <div class="preview">
-        <div class="paper"></div>
-
-        <div class="demo-text">
-          <div class="h">Para el amor de mi vida:</div>
-          Si pudiera elegir un lugar seguro, sería a tu lado...
-          <br><br>— I Love You!
-        </div>
-
-        <div class="tree">
-          <div class="crown"></div>
-          <div class="trunk"></div>
-        </div>
-
-        <div class="demo-time">365 días 23 horas 40 minutos 05 segundos</div>
-        <div class="demo-line"></div>
-
-        <span class="petal p1">💗</span>
-        <span class="petal p2">💖</span>
-        <span class="petal p3">💗</span>
-      </div>
-    </section>
-
-    <main class="content">
-      <h1 class="title">🌸Arbol de Corazones de Amor y Reloj Romantico 💖</h1>
-
-      <div class="price">$3</div>
-
-      <div class="rating">
-        <span class="stars">★ ★ ★ ★ ☆</span>
-        <strong>4.6 (14)</strong>
-        <span class="muted">👌 411 people bought this</span>
-      </div>
-
-      <p class="desc">
-        Crea una experiencia inolvidable en tu web: un corazón que al hacer clic se transforma
-        en un hermoso árbol de corazones en caída, deslizando un mensaje de amor personalizado.
-        ✨ Al final, un reloj encantador muestra cuánto tiempo llevan juntos, en días, horas,
-        minutos y segundos. ¡Ideal para dedicar algo único y especial! 💌
-      </p>
-
-      <ul class="list">
-        <li>📂 Código en HTML, CSS y JavaScript</li>
-        <li>💌 <a href="#" id="exampleLink">Ver ejemplo</a></li>
-        <li>✅ <a href="#" id="readyLink">Link listo para enviar aquí</a></li>
-      </ul>
-    </main>
-
-    <div class="bottom">
-      <div class="b-price">$3</div>
-      <button class="cta" id="addToCart">Add to cart</button>
+  <!-- Intro overlay -->
+  <div class="intro" id="intro">
+    <div class="introBox">
+      <button class="heartBtn" id="startBtn" aria-label="Open our wedding page">
+        <span></span>
+      </button>
+      <p class="introText">Tap the heart to open</p>
     </div>
   </div>
 
-  <script>
-    // ====== تخصيص سريع (غيّر القيم دي) ======
-    const PRODUCT = {
-      storeName: "Alex Dev",
-      title: "🌸Arbol de Corazones de Amor y Reloj Romantico 💖",
-      price: "$3",
-      ratingText: "4.6 (14)",
-      buyersText: "👌 411 people bought this",
-      description:
-        "Crea una experiencia inolvidable en tu web: un corazón que al hacer clic se transforma en un hermoso árbol de corazones en caída, deslizando un mensaje de amor personalizado. ✨ Al final, un reloj encantador muestra cuánto tiempo llevan juntos, en días, horas, minutos y segundos. ¡Ideal para dedicar algo único y especial! 💌",
-      sampleTime: "365 días 23 horas 40 minutos 05 segundos"
-    };
-    // =======================================
+  <!-- wrapper for full-screen fit -->
+  <div id="fit">
+    <!-- Main card -->
+    <section class="wrap" id="mainCard">
+      <div class="left">
+        <div class="textBlock">
+          <h1>Ahmed <span class="heartMark">♥</span> Nour</h1>
+          <p class="message" id="message"></p>
+        </div>
 
-    document.querySelector(".name").textContent = PRODUCT.storeName;
-    document.querySelector(".title").textContent = PRODUCT.title;
-    document.querySelector(".price").textContent = PRODUCT.price;
-    document.querySelector(".b-price").textContent = PRODUCT.price;
-    document.querySelector(".rating strong").textContent = PRODUCT.ratingText;
-    document.querySelector(".rating .muted").textContent = PRODUCT.buyersText;
-    document.querySelector(".desc").textContent = PRODUCT.description;
-    document.querySelector(".demo-time").textContent = PRODUCT.sampleTime;
+        <div class="countWrap">
+          <div class="countLabel" id="countLabel">Time left until the wedding:</div>
 
-    document.getElementById("addToCart").addEventListener("click", () => {
-      alert("Added to cart ✅");
-    });
+          <div class="count">
+            <div class="unit">
+              <div class="num" id="d">0</div>
+              <div class="txt">DAYS</div>
+            </div>
+            <div class="unit">
+              <div class="num" id="h">0</div>
+              <div class="txt">HOURS</div>
+            </div>
+            <div class="unit">
+              <div class="num" id="m">0</div>
+              <div class="txt">MINS</div>
+            </div>
+            <div class="unit">
+              <div class="num" id="s">0</div>
+              <div class="txt">SECS</div>
+            </div>
+          </div>
 
-    document.getElementById("exampleLink").addEventListener("click", (e) => {
-      e.preventDefault();
-      alert("حط لينك المثال هنا");
-    });
+          <div class="dateLine" id="dateLine"></div>
+        </div>
+      </div>
 
-    document.getElementById("readyLink").addEventListener("click", (e) => {
-      e.preventDefault();
-      alert("حط لينك الإرسال الجاهز هنا");
-    });
-  </script>
+      <div class="right">
+        <div class="ground"></div>
+        <div class="branch b1"></div>
+        <div class="branch b2"></div>
+        <div class="trunk"></div>
+        <div class="crown" id="crown"></div>
+      </div>
+
+      <div class="sig">Ahmed ♥ Nour</div>
+    </section>
+  </div>
+
+  <script src="script.js?v=4"></script>
 </body>
 </html>
