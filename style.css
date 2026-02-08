@@ -368,3 +368,64 @@ h1 .heartMark { color: #d07386; padding: 0 .16em; }
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
 }
+/* ===== Mobile: show full tree clearly ===== */
+@media (max-width: 768px) {
+  .wrap{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 420px auto; /* زوّدنا مساحة الشجرة */
+    gap: 10px;
+  }
+
+  .right{
+    order: 1;
+    min-height: 420px;
+    height: 420px;
+    overflow: visible; /* مهم عشان ما يقصش التاج */
+    position: relative;
+  }
+
+  /* shadow الأرض */
+  .ground{
+    bottom: 16px;
+    width: 68%;
+    height: 16px;
+  }
+
+  /* الجذع */
+  .trunk{
+    width: 30px;
+    height: 140px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* الفروع */
+  .b1{
+    width: 62px;
+    bottom: 102px;
+    left: 50%;
+    transform: translateX(-1px) rotate(-24deg);
+  }
+  .b2{
+    width: 56px;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(6px) rotate(18deg);
+  }
+
+  /* تاج القلب */
+  .crown{
+    width: 250px;
+    height: 210px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 145px; /* يطلع لفوق بدون قص */
+    filter: drop-shadow(0 8px 8px rgba(0,0,0,.12));
+  }
+
+  .left{
+    order: 2;
+  }
+}
